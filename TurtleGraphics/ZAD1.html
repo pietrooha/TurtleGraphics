@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pl">
+	<head>
+		<title>ZAD1 TURTLE</title>
+		<meta http-equiv="author" content="Piotr Czerwiński" />
+		<style type="text/css">
+			canvas
+			{
+				display: block;
+    				margin: 0 auto;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="myCanvas" width="900" height="900" style="border:1px solid #d3d3d3;">
+        	<h3>Your browser does not support the HTML5 canvas tag.</h3>
+      	</canvas>
+      	<script>
+
+      		var canvas = document.getElementById("myCanvas");
+         	var ctx = canvas.getContext("2d");
+         	var penX1 = canvas.height / 2;
+         	var penY1 = canvas.width / 2;
+         	var penX2;
+         	var penY2;
+         	var turtleAngle = 0;
+/*
+         	// TURTLE
+         	function turtle()
+         	{
+         		ctx.beginPath();
+      			ctx.rect(penX1, penY1, 5, 5);
+      			ctx.fillStyle = 'green';
+      			ctx.fill();
+      			ctx.closePath();
+         	}
+*/
+         	// PENUP
+         	function PU()
+         	{
+            	ctx.moveTo(penX1, penY1);
+         	}
+
+         	// FORWARD
+         	function FD(distance)
+         	{	
+         		ctx.beginPath();
+         		PU();
+            	penX2 = penX1 + Math.cos(turtleAngle) * distance;
+            	penY2 = penY1 + Math.sin(turtleAngle) * distance; 
+            	ctx.lineTo(penX2, penY2);
+            	//ctx.strokeStyle = 'blue';
+            	ctx.stroke();
+            	ctx.closePath();
+            	
+            	penX1 = penX2;
+            	penY1 = penY2;
+         	}
+
+         	// BACK
+         	function BK(distance)
+         	{
+         		ctx.beginPath();
+         		PU();
+            	penX2 = penX1 - Math.cos(turtleAngle) * distance;
+            	penY2 = penY1 - Math.sin(turtleAngle) * distance; 
+            	ctx.lineTo(penX2, penY2);
+            	//ctx.strokeStyle = 'blue';
+            	ctx.stroke();
+            	ctx.closePath();
+
+            	penX1 = penX2;
+            	penY1 = penY2;
+         	}
+
+         	// LEFT
+         	function LT(angle)
+         	{
+         		turtleAngle -= (angle / 180 * Math.PI);
+         	}
+
+         	// RIGHT
+         	function RT(angle)
+         	{
+         		turtleAngle += (angle / 180 * Math.PI);
+         	}
+
+         	// CLEARSCREEN
+         	function CS()
+         	{
+         		ctx.clearRect(0, 0, canvas.width, canvas.height);
+         		penX1 = canvas.height / 2;
+         		penY1 = canvas.width / 2;
+         		turtleAngle = 0;
+         		ctx.moveTo(penX1, penY1);
+         	}
+
+         	// SETPENCOLOR
+         	function SETPC(color)
+         	{
+         		ctx.strokeStyle = color;
+         	}
+
+         	function drawRegularPolygon(n, color)
+         	{
+         		penX1 = canvas.height / 2 - 50;
+         		penY1 = canvas.width / 2 + 430;
+       			SETPC(color);
+       			  		
+         		if(n < 2)
+         		{
+         			return;
+         		}
+         		else if(n > 1)
+         		{
+         			for(var i = 0; i < n; i++)
+         			{ 	
+         				if(n < 14)
+         				{
+         					FD(200);
+         				}
+         				else if(n < 28)
+         				{
+         					FD(100);
+         				}
+         				else
+         					FD(50)
+         					LT(360 / n);
+         			}
+         		}
+         	}
+
+		</script>
+   	</body>
+</html>
